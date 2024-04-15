@@ -18,8 +18,6 @@ public class Utility {
 
 		Double[] result = new Double[nums.length];
 		for (int i = 0; i < nums.length; i++) {
-//			Double v=   Math.ceil(nums[i]);
-//			result[i] = Double.parseDouble(String.format("%.2f", nums[i]));
 			result[i] = Math.round(nums[i] * 100.0) / 100.0;
 		}
 		return result;

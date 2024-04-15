@@ -62,4 +62,5 @@ public class ScheduleController {
 
 		return new ResponseEntity<List<Payment>>(payments, HttpStatus.OK);
 	}
+
 }

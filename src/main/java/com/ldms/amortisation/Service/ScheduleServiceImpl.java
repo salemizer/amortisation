@@ -25,22 +25,21 @@ public class ScheduleServiceImpl implements ScheduleService {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Schedule createSchedule(Double cost, Double deposit, Integer noOfPayments, Double interestRate,
-			Double balloon) {
+	public Schedule createSchedule(LoanDetails loanDetails) {
 
 		double totalInterestDue = 0;
 		double totalPaymentDue = 0;
-		double P = cost - deposit;
-		double r = (interestRate / 100) / 12;
+		double P = loanDetails.getCost() - loanDetails.getDeposit();
+		double r = (loanDetails.getInterestRate() / 100) / 12;
 
-		double monthlyRepayment = calculateMonthlyRepayment(P, noOfPayments, r, balloon);
+		double monthlyRepayment = calculateMonthlyRepayment(P, loanDetails.getNoOfPayments(), r, loanDetails.getBalloon());
 
-		Double[] data = Utility.twoDecimalPlaces(cost, deposit, interestRate, balloon);
-		LoanDetails loanDetails = new LoanDetails(data[0], data[1], data[2], noOfPayments, data[3]);
+		Double[] data = Utility.twoDecimalPlaces(loanDetails.getCost(), loanDetails.getDeposit(), loanDetails.getInterestRate(), loanDetails.getBalloon());
+		loanDetails = new LoanDetails(data[0], data[1], data[2], loanDetails.getNoOfPayments(), data[3]);
 
 		List<Payment> payments = new LinkedList<Payment>();
 
-		for (int i = 1; i <= noOfPayments; i++) {
+		for (int i = 1; i <= loanDetails.getNoOfPayments(); i++) {
 
 			Double[] arr = calculatePaymentApportion(P, r, monthlyRepayment);
 			double remaining = calculateRemainingBalance(P, arr[0]);

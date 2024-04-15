@@ -10,11 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ldms.amortisation.ScheduleException;
+import com.ldms.amortisation.domain.LoanDetails;
 import com.ldms.amortisation.domain.Payment;
 import com.ldms.amortisation.domain.Schedule;
 import com.ldms.amortisation.service.ScheduleService;
@@ -31,15 +32,17 @@ public class ScheduleController {
 	ScheduleService scheduleService;
 
 	@PostMapping("/v1/schedules")
-	public ResponseEntity<Schedule> createSchedule(@RequestParam @Valid Double cost, @Valid Double deposit,
-			@Valid Double interestRate, @Valid Integer noOfPayments, @Valid Double balloon) {
-
-		Schedule details = scheduleService.createSchedule(cost, deposit, noOfPayments, interestRate, balloon);
+	public ResponseEntity<Schedule> createSchedule(@RequestBody @Valid LoanDetails details) {
 
 		if (details == null)
+			throw new ScheduleException("Invalid input!!");
+
+		Schedule schedule = scheduleService.createSchedule(details);
+
+		if (schedule == null)
 			throw new ScheduleException("Error creating schedule!!");
 
-		return new ResponseEntity<Schedule>(details, HttpStatus.CREATED);
+		return new ResponseEntity<Schedule>(schedule, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/v1/schedules")

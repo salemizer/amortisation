@@ -58,11 +58,11 @@ public class ScheduleControllerTest {
 		schedule.setLoanDetails(loanDetails);
 		schedule.setScheduleSummary(summary);
 
-		when(scheduleService.createSchedule(new Double(25000), new Double(5000), new Integer(12), new Double(7.5),
-				new Double(0))).thenReturn(schedule);
+		when(scheduleService.createSchedule(loanDetails)).thenReturn(schedule);
 
 		RequestBuilder request = MockMvcRequestBuilders
-				.post("/api/v1/schedules?cost=25000&deposit=5000&interestRate=7.5&noOfPayments=12&balloon=0")
+				.post("/api/v1/schedules")
+				.content("{\"cost\":25000.0,\"deposit\":5000.0,\"interestRate\":7.5,\"noOfPayments\":12,\"balloon\":0.0}")
 				.accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(request).andExpect(status().isCreated()).andExpect(content().json(

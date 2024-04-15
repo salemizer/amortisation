@@ -1,4 +1,4 @@
-package com.ldms.amortisation.Domain;
+package com.ldms.amortisation.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,4 +1,4 @@
-package com.ldms.amortisation.Domain;
+package com.ldms.amortisation.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,6 +18,7 @@ public class ScheduleSummary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "summary_id")
+	@JsonIgnore
 	private Long summaryid;
 
 	@JsonIgnore

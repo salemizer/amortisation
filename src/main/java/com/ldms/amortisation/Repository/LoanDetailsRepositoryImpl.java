@@ -1,8 +1,8 @@
-package com.ldms.amortisation.Repository;
+package com.ldms.amortisation.repository;
 
 import org.springframework.stereotype.Repository;
 
-import com.ldms.amortisation.Domain.LoanDetails;
+import com.ldms.amortisation.domain.LoanDetails;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

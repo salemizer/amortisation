@@ -1,4 +1,4 @@
-package com.ldms.amortisation.Controller;
+package com.ldms.amortisation.controller;
 
 public class LoanDetailsController {
 

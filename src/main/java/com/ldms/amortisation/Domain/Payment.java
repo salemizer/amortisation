@@ -1,4 +1,6 @@
-package com.ldms.amortisation.Domain;
+package com.ldms.amortisation.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,6 +17,7 @@ public class Payment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "payment_id")
+	@JsonIgnore
 	private Long paymentid;
 
 	private Integer period;

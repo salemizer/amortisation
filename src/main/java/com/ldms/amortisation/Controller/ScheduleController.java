@@ -1,4 +1,4 @@
-package com.ldms.amortisation.Controller;
+package com.ldms.amortisation.controller;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ldms.amortisation.Domain.LoanDetails;
-import com.ldms.amortisation.Domain.Payment;
-import com.ldms.amortisation.Domain.Schedule;
-import com.ldms.amortisation.Service.ScheduleService;
+import com.ldms.amortisation.domain.LoanDetails;
+import com.ldms.amortisation.domain.Payment;
+import com.ldms.amortisation.domain.Schedule;
+import com.ldms.amortisation.service.ScheduleService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("schedules")
+@RequestMapping("/api")
 @RestController
 public class ScheduleController {
 
@@ -31,7 +31,7 @@ public class ScheduleController {
 	@Autowired
 	ScheduleService scheduleService;
 
-	@PostMapping("/create")
+	@PostMapping("/v1/schedules")
 	public ResponseEntity<Schedule> createSchedule(@RequestParam @Valid Double cost, @Valid Double deposit,
 			@Valid Double interestRate, @Valid Integer noOfPayments, @Valid Double balloon) {
 
@@ -40,19 +40,9 @@ public class ScheduleController {
 		return new ResponseEntity<Schedule>(details, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{scheduleid}")
-	public ResponseEntity<Schedule> findSchedule(@PathVariable Long scheduleid) {
 
-		Schedule schedule = scheduleService.findSchedule(scheduleid);
-
-		if (schedule == null)
-			throw new RuntimeException("Exception saving the Loan details!!!");
-
-		return new ResponseEntity<Schedule>(schedule, HttpStatus.OK);
-	}
-
-	@GetMapping("/list")
-	public ResponseEntity<List<Schedule>> listSchedule() {
+	@GetMapping("/v1/schedules")
+	public ResponseEntity<List<Schedule>> listSchedules() {
 
 		List<Schedule> schedules = scheduleService.listSchedule();
 
@@ -62,7 +52,7 @@ public class ScheduleController {
 		return new ResponseEntity<List<Schedule>>(schedules, HttpStatus.OK);
 	}
 
-	@GetMapping("/amortisation/{scheduleid}")
+	@GetMapping("/v1/schedules/{scheduleid}")
 	public ResponseEntity<List<Payment>> findSchedulePayments(@PathVariable Long scheduleid) {
 
 		List<Payment> payments = scheduleService.findSchedulePayments(scheduleid);

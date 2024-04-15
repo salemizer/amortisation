@@ -1,14 +1,14 @@
-package com.ldms.amortisation.Service;
+package com.ldms.amortisation.service;
 
-import com.ldms.amortisation.Domain.LoanDetails;
-import com.ldms.amortisation.Domain.Payment;
-import com.ldms.amortisation.Domain.Schedule;
 import java.util.List;
+
+import com.ldms.amortisation.domain.LoanDetails;
+import com.ldms.amortisation.domain.Payment;
+import com.ldms.amortisation.domain.Schedule;
 
 public interface ScheduleService {
 
 	Schedule createSchedule(Double cost, Double deposit, Integer noOfPayments, Double interestRate, Double balloon);
-	Schedule findSchedule(Long scheduleid);
 	List<Schedule> listSchedule();
 	List<Payment> findSchedulePayments(Long scheduleid);
 	

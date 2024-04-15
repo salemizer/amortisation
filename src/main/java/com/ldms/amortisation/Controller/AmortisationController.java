@@ -1,4 +1,4 @@
-package com.ldms.amortisation.Controller;
+package com.ldms.amortisation.controller;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ldms.amortisation.Service.ScheduleService;
+import com.ldms.amortisation.service.ScheduleService;
 
 @RestController
 @RequestMapping("/amortisation")

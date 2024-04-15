@@ -1,4 +1,4 @@
-package com.ldms.amortisation.Service;
+package com.ldms.amortisation.service;
 
 public interface SummaryService {
 

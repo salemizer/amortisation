@@ -1,11 +1,11 @@
-package com.ldms.amortisation.Repository;
+package com.ldms.amortisation.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.ldms.amortisation.Domain.Payment;
-import com.ldms.amortisation.Domain.Schedule;
+import com.ldms.amortisation.domain.Payment;
+import com.ldms.amortisation.domain.Schedule;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -18,10 +18,6 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
 
 	@PersistenceContext
 	EntityManager manager;
-
-	public Schedule findSchedule(Long scheduleid) {
-		return manager.find(Schedule.class, scheduleid);
-	}
 
 	@Override
 	public Schedule saveSchedule(Schedule schedule) {

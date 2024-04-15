@@ -1,4 +1,4 @@
-package com.ldms.amortisation.Domain;
+package com.ldms.amortisation.domain;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ public class Schedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "schedule_id")
+	@JsonIgnore
 	private Long scheduleid;
 
 	@JsonIgnore

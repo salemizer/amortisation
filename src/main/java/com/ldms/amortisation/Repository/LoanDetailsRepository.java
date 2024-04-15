@@ -1,6 +1,6 @@
-package com.ldms.amortisation.Repository;
+package com.ldms.amortisation.repository;
 
-import com.ldms.amortisation.Domain.LoanDetails;
+import com.ldms.amortisation.domain.LoanDetails;
 
 public interface LoanDetailsRepository {
 

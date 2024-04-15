@@ -1,9 +1,6 @@
 package com.ldms.amortisation.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-//import com.ldms.amortisation.Domain.*;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,9 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PositiveOrZero;
 
@@ -25,23 +20,23 @@ public class LoanDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long detailsid;
 
-    @PositiveOrZero
+	@PositiveOrZero
 	private Double cost;
-    
-    @PositiveOrZero
+
+	@PositiveOrZero
 	private Double deposit;
-    
-    @PositiveOrZero
+
+	@PositiveOrZero
 	@Column(name = "interest_rate")
 	private Double interestRate;
-    
-    @PositiveOrZero
-    @Min(value = 1)
+
+	@PositiveOrZero
+	@Min(value = 1)
 	@Column(name = "no_of_payments")
 	private Integer noOfPayments;
-    
-    @PositiveOrZero
-    @Min(value = 0)
+
+	@PositiveOrZero
+	@Min(value = 0)
 	private Double balloon;
 
 	@JsonIgnore

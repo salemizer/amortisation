@@ -9,12 +9,12 @@ public class Utility {
 
 	private static Logger log = LoggerFactory.getLogger(Utility.class);
 
-	public static Double twoDecimalPlaces(Double num) {
+	public static Double twoDecimalPlaces(Double num) throws RuntimeException {
 
 		return Double.parseDouble(String.format("%.2f", num));
 	}
 
-	public static Double[] twoDecimalPlaces(Double... nums) {
+	public static Double[] twoDecimalPlaces(Double... nums) throws RuntimeException {
 
 		Double[] result = new Double[nums.length];
 		for (int i = 0; i < nums.length; i++) {

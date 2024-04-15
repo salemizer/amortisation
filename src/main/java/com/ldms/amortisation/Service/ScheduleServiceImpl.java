@@ -2,7 +2,6 @@ package com.ldms.amortisation.service;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +41,20 @@ public class ScheduleServiceImpl implements ScheduleService {
 		List<Payment> payments = new LinkedList<Payment>();
 
 		for (int i = 1; i <= noOfPayments; i++) {
-			
+
 			Double[] arr = calculatePaymentApportion(P, r, monthlyRepayment);
 			double remaining = calculateRemainingBalance(P, arr[0]);
-			
-			Double [] values=Utility.twoDecimalPlaces(monthlyRepayment, arr[0], arr[1], remaining);
+
+			Double[] values = Utility.twoDecimalPlaces(monthlyRepayment, arr[0], arr[1], remaining);
 			payments.add(new Payment(i, values[0], values[1], values[2], values[3]));
-			
+
 			P = remaining;
 			totalInterestDue += arr[1];
 			totalPaymentDue += monthlyRepayment;
 		}
 
 		Schedule schedule = new Schedule(payments);
-		
+
 		ScheduleSummary summary = new ScheduleSummary();
 		summary.setMonthlyRepayment(Utility.twoDecimalPlaces(monthlyRepayment));
 		summary.setTotalInterestDue(Utility.twoDecimalPlaces(totalInterestDue));
@@ -73,7 +72,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 	private Double calculateMonthlyRepayment(Double P, Integer noOfPayments, double r, double balloon) {
 
 		Double value = 0.0;
-
 		if (balloon > 0) {
 //			 (P - (B / ((1 + r) ^ n))) * (r / (1 - (1 + r) ^ -n))
 			value = (P - (balloon / (Math.pow(1 + r, noOfPayments)))) * (r / (1 - Math.pow(1 + r, -noOfPayments)));
@@ -89,7 +87,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		double interest = calculateInterest(P, r);
 		double principle = calculatePrinciple(monthlyRepayment, interest);
 
-		return new Double[] { principle, interest};
+		return new Double[] { principle, interest };
 	}
 
 	private Double calculateInterest(Double P, Double r) {
@@ -104,7 +102,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		return P - principle;
 	}
-
 
 	@Override
 	public List<Schedule> listSchedule() {

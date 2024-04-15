@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ldms.amortisation.domain.LoanDetails;
+import com.ldms.amortisation.ScheduleException;
 import com.ldms.amortisation.domain.Payment;
 import com.ldms.amortisation.domain.Schedule;
 import com.ldms.amortisation.service.ScheduleService;
@@ -37,17 +36,18 @@ public class ScheduleController {
 
 		Schedule details = scheduleService.createSchedule(cost, deposit, noOfPayments, interestRate, balloon);
 
+		if (details == null)
+			throw new ScheduleException("Error creating schedule!!");
+
 		return new ResponseEntity<Schedule>(details, HttpStatus.CREATED);
 	}
-
 
 	@GetMapping("/v1/schedules")
 	public ResponseEntity<List<Schedule>> listSchedules() {
 
 		List<Schedule> schedules = scheduleService.listSchedule();
-
-		if (schedules == null)
-			throw new RuntimeException("Exception saving the Loan details!!!");
+		if (schedules == null || schedules.size() == 0)
+			throw new ScheduleException("Error retrieving schedules, or no previosuly created schedules found!");
 
 		return new ResponseEntity<List<Schedule>>(schedules, HttpStatus.OK);
 	}
@@ -56,9 +56,8 @@ public class ScheduleController {
 	public ResponseEntity<List<Payment>> findSchedulePayments(@PathVariable Long scheduleid) {
 
 		List<Payment> payments = scheduleService.findSchedulePayments(scheduleid);
-
-		if (payments == null)
-			throw new RuntimeException("Exception saving the Loan details!!!");
+		if (payments == null || payments.size() == 0)
+			throw new ScheduleException("Error retrieving schedule, or the schedule not found!");
 
 		return new ResponseEntity<List<Payment>>(payments, HttpStatus.OK);
 	}

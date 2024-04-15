@@ -1,12 +1,9 @@
 package com.ldms.amortisation.repository;
 
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.ldms.amortisation.domain.Payment;
 import com.ldms.amortisation.domain.Schedule;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
